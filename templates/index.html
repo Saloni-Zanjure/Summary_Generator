@@ -1,0 +1,99 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Summarization</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<form action="{{url_for('Summarize')}}" method="post">
+    <textarea name="data"  cols="30" rows="10" placeholder="Enter Your Data" required="required"></textarea>
+    <input type="range" min="20" max="1000" name="maxL" value="100">
+    <button type="reset">Clear </button>
+    <button type="submit">Submit</button>
+
+</form>
+<h3> Summarized Text</h3>
+ <textarea name="result"  cols="30" rows="10">{{result}}</textarea>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Summarization</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/static/css/jquery-ui.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header style="background-color: #004A56;"
+        class="fixed inset-0 w-full flex flex-col justify-center justify-items-center content-center h-20 rounded-b-lg">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADACAMAAAB/Pny7AAAAaVBMVEUAAAD////v7+/u7u7t7e38/Pz4+Pjx8fH29vYkJCTHx8eEhITq6urd3d0SEhKfn59qamqMjIwzMzO8vLxxcXHk5OTOzs55eXlhYWHV1dVAQECZmZmzs7NGRkYuLi6pqalYWFhOTk4aGhrSkIQAAAAVjUlEQVR4nM1di5qqOAymQi8iqIigKIr6/g95WihtWlrA65zufrsznRLy01uSJmmAZCELWbCsYN2vIe0rSNjVUPVIxH9hmOb3dfBuudT0LT7aEiCriSYS2kQiWaEeoYws8sPbQGQ5xOJV7AU+FBgsC6Gy9BXMrrBbIETT5v4pKKLcm4rgp/nQFUH/A+n/NKjoqTGjBX9rfD5NM7heXruyXM4YjLtzzBB6hg9YEcgeikjfaTQ0K7CsCFlfEYYhJWG+GufrejmusizbNHUuSl03m/MqW+3v1/HnspjN5qOrUKw7wCzMJj2RhSZC+aQ/+HlaHg9Zk8dVmojP2j1DCGGMRpQlVZzn2f7of/y6yuksPvql4i0whMVeKLvjJi+LImKcfUYtGnxEyEmdpGW+Oe58RPYx/hEYVPignDZ50RJinAgfjIMhomlwXDQp4s3S0zuHQo6zGWAU0efB4LObgVuTMDyTRstIO7tp0tyc5JZniqJv90zp7JXdpuDLG55JQzMiWuBi4xxvu1LsMW+CCUcYiRxb5HqZleKxaCaNjhGzRZq5Fu5DyB+cTYODsRdrYi/nfQUfQyQfdsvy2CyQ3AOmaQw2DaI24I1jgbvWlMymwfeZHhWJuhIqMUJWaDEizQZf77TnMhV9gkZfYT8S8R/z/WATXmcFX9Dn0lBgWD8CfQIezi+DUb3iGxwfX7Np+IXElgaJs8HsueeUzaQBBM0JRhZn+z3LLA6JGMjRXBpTYFo49lq5Oyc4/CyYdDuYnSUjFDLyCTD8kXiwxmxTjuYpMONDJLaH2DGOEB4w8gEwhCXx0XrZJUc0+ljPnK2FZlmHTkY+0TMhlw1qa6xdz1xk+EjPIGTLx9vCw8gnwIi/4sIe1StEntI0uwI0vK6Qwur1Xa6IdC2iSRpgWZUVaJwGQ7W13hwL+5EBjbCXAMBGa1VUN4Poehsh+YwS8KIpGqpCC5pTNFCyNXe1W0WmaEzKZqWJ5bRBKLTfG03QGJfNPDQw2pwsNIyO05gCU9oEXaL362DGaIT2oLiUZJzGBJjYILfMCuSSVt8AM0oDp9kDvv8ei+3zVRUgNvrl1LC5X/UTPSOmB21MDmI+xl/smdRYUU45fuKrfqJnhI0xN9DsKhS91jPmtn+rsI/I98BwNKmxM1xiNAKmF581kV4mTw0sd7VX4NB+xEtDg5G6AXuaRoiZYWi8pMhLI2CyEFW631Fq0DhixMwG4BEfjZGKJ2hgZIgD9xT5HvEqZ4Wxjh1AC5di5abxnHLmpcGQIUjfUvakcsagPLbet8/MkqsAjZdlM4tGuEB7uESvKHXS8EnN5Ay/xXkmI5+Qmp00KN4Y/LRo5oLBNZCLHiv612AWlK5A36xrNg7G6F5DiFkt5jLypWEmCktW4PuehGAzs2cSuJDtkze/6id6hqMp4Cpwj5jrsAlZrxFE9uCxbWK3GGFkcOr1AhgfDZJAtvZoDEzfvfy9DXjolOIBI3bFYIio1zDfI8/T4LxHcMA0aGHTWPTijJYJcAknf6kUKy2K9JZEbVqWBSkG7BbK+OhtMaBBLcYwxTFcoCs0YH0omyFovMhdclWSfrUkBhgg30UoB6xdVb+PSM0ZeOCMHGAWAxPaZ8vWByaMDOYyabYbAQNt40fkAkM/dljuLisvmEWIgAi9zPHEMEtA63vxJ2AOfjB8gQaLwDHpBpqvZ/BZz/5lif4EzEjPLEJcavvg+txZOHw9UwIdZoP/PzBcWQNS2iVmJhgpcHdgIiAr9zt/r1hFvwYDGdN8ULh3HhJqKGfKZ4NrOTjXg4yLP0o7Ug3a8v05Q8VrIGOQDyg4rnPhzdE3YFCcodAQK8fjUBThAux3wayEPSD0i0QYqCdHMXxcgialtW61TYhNpAez+DKYQ2fc8IJBCdjoauwWNGmit5hd7hUSvw5mNQGG4FybwJaFGwzsvpVf4v3zniEUnrGcsUtqpokW44Q95//tmYgAy9EycYFBumPWZyeR/6VnwhCBvf3sGmZU//0itAufO+FvwITa1OTggyV6c18zrMD0yzkUSGvkcryT3oPs20vzodNtvA6Agg8EFt5M6UKBaqo7ZtcS8LkT/kACcDuTQD4Q1gvaGil3k3DRHgdCXblGYWi6E4bi31+LMy1nXj6Antb0U0UKmhRYp0+t0uO34H8bTCZfIye+jw/N8IUYYEKUa8m603n+DsyYPgP40F0jdZUeDMVaKluTcSJ/1TPI4oNoeeUIwYQESKINnvCN/H3P4KKMq4KaKj/WC9qpgmDwRu3+u4L+cc8MlDPWiE645FKO7/koVAc8NhJM6+sQaTk0o7RzmQBKUSi9Jn4LRrpu4P5E4towCvkAJxXbztwWiBMncKq8LLF1dGUfZZHvb5rwtThRosuyMU7MgDlgFyOlnAF5WZnJe7+XyPZ7+YU4I94jX7sAvpTLDeAjhAr0ue2zFgyobZTd5v8QNKnhF9pKwNr4rpeAbcF6QVNvMlzzn7Lg/xRMtLJ8XDcQjF6DH7mobcFohCs9qv4LfSa2/7jeKImfIjB7ayx7RnuqPWo2ebbyUzDmWWZbzv2izVcw7TG4FTuKAFOp3rqXLPxzMGqYsVXiQLPeSIM5B1MpAe1UsRYM2EoPfJOZ8uL7Rc8IcVnsZ7cCQaWyR9PtNxwM0VteTRdhwD+AVstav05TF/sr5QyHYonlaMjGRvPYUNYxBlT9jNcFFBjWTzGajvX6jXKGiu6TbVOEXCNNtOGI9W5/LxAOFqxSjUSvTsd6/UScUWfLwtG0sZushe0P85EGbLCVEDSBHXMlpseke9UvwBQHNbacaHasc9EicHEWISdqynTC5/8AptiDeXLha9oATdmCCZEW9zMmwKhdhotr/wcY6w1cLQYrblfyDgyOlWGDS84BLdRHuOP/AkxG7FgAc/9oSyjj1ohavdYFB5OqBp32+edgVtmgakmteXOUcyYE+n7K9RllGFh3+tpkvNiXwexcJ/MnsQpoW/hJ+DaKmDM+adTAilGA1XrwyBEBB1WDE7N+4/nuprmshuJY0JnyFZpd1TImOEO5grjCAb4pMiWLQsMl0aWcRd8VZy45Go4yUe58H2k6ufIeswXntFOVKyVr3jgYtYfuOvPHk4LmevmJ0lM7xdgDpkXTrgL3kgC3Rm2nPeEgVIQunWfNk2COefx+6Y/CeL8QH5g2DqEWEQFMSc2iqPOAZRRoYebYhV88CWYbYaVpK1uIXaGOI5HdAnVGi5McP1zs9YLp5s2lwlqfEQUINEGpfp48sXL3TEK1DaT3yX3SFZh2JrCriDIaAROcuCyQ2A54unkZaMW0fgnMVnuIvV6YGCudADIGppUmbTDa5hwH+ucKvwLmety+XfZHvr5eYzQJZp1oPnq3xkL9tQm0epMIpWUBDBrUrCCL7vfv7DMSyyiYO9N80L5nEvXnLND7bTf0HfFiv9BnHhXq7fVeMPeCQD5kUIoGsw/0mQ0FTX4tzpxypHRC79KcEsO9DMtRrxocA21lZn8HhuvrOn7GA+aYYpMPCYbqHTdQRzYn/GdgLjGaBKOw2AFFWI2ta6DktDv6KzBir5wCcyzskzMJJkS3vs0j0Lr2X4HpInLHwdwTX6gX8EEFqvb2j8CcujV5FIxYk71gXPqPAuOJF9NujXvH0y+XpdxfdMyZQ9HELj5kzJkHzLywsM+enF1L67WOTfPeeS56GHOCObYmXqCchT9QzjgWqQOi/rUDMDcm3jw4wVPCqmug3GSgwLPK2e71clV75cIPZpu0L/aHrQBbjloCXgRz7zJ+vVZKR2STBWbfYZkDZg32GfwSmGOETU3LpYv5K6bA7Avs4UOBufVtH0ACkGc4P1HOdCDPOJhtMhkdhZXefIWy2Utg9u8pZ+Ng9sV0qBfT3RGoTuL6zCtgrtv9K2WbJdNgWi12CgxVze9QnzHjUn3xYp9Zmq+5yZkLzBGP8dFXaH1mCzVNiTS0fWfCz/vOcHlM5k7pQUTqtT2YI59yY3zgtj3TYM6BtkfL2PTfyGadS4UzH4AEwyWSGZnnQqJtZblhnfkhGIGGAqI2mPUhYhN+b7gbnvqsIwZ2s5nuhO+D6fbpozi59/XMekV7I8wUGD2Dy0Afz9x+BWZ1VGhceWcyERsezUxdAUPqUsPW/CMwiUyLcSuxG8yaY5mbh0Pbmq8MngKw34DhmpZEcymRc84ILDPB0AUwYoDzmUfnUTutnL0JRpzhy2N+qWW2YNRrDwc6i49WOWOlcT4DT84M7xJmOGYoT4133U2WFaGUyFC9a9VHOavXoiYic/jo0jaaJ2dILWfrjPf1SKzXh2LOjly9C5WvGJcEuuGluijbCx1nmg9pa9Z+QjEJEFjO2lH4bRet1qNXMNJtjsuGGGA2QTbvNEIKXjdFOKUBKrRGw9jzYO55HJddiUt1FFbxf8qy0mdjZVx1bfKwz39B2oo8b2XCHky9fg6MNgEuCw5GG1t2bZKqN5Szdoi3476vILJGDSJCukBYpJtQ0DPCte8pMNpDY085GAJ9Z14Ak1A7ZURIZw4R1KsAtKOB2+xQT4EBvjMCDNbHTQfy/DDbJoQitfD0/tPeCmqDaaNlKRXZH2Vk9TNg9Foc5FS4NYIj2oKNx3o5wFzOmyfKOYcrERL5c8Xz540YmTLRXDYdc6ZoJHr+c+EowCAr0zXHE7Fejn1m/VRpiLWt5CdOgQvJSGW6ymbEnMkWwO//VrA25gw4OrrcGqlJ7S0JgAswJlGVRS1T3zTzpNK3+BAVwEfzzIRbI3QFPDC/W+NHZLO9zC4EU+B1o2utlqU+GGiKDxxSzcpaqOEcDKuU4HkpvyxonpEFpp0r5rUPM2POOBhWqicvVQeG6sRB62ZGCvs3wFwqG0xLNDG85WaDWbBGyTJtdImIbIJe2uFXwWyxASZciKw6LCqMjPqzwdAE+GijDkxIdJTGrvwmmIeKqGyvjhCXpBRpnt3NHMCzwZBSzbPOi0D0DC1A/IzXD+ADYE6p6hm+V9Kkis/bYZb2uWAQ05alLoapizkD0VuJDDH7RszZTSuWtMrPB/clKT2YKT5AdIlcWOyYs4eOOfv4ydm6Qfxx/kXTOlvdvDeDZGjWCR4jsZr+pxjrhCBMY1z1wD8fpXFNxPfNN/ub5waNHgyMOfPzQYFReqFjzpT3YyDiNHsiC1smelc5O5L8fDs9pprNFDRpqvr2sekCZSWYCkbQPgVGnJxp90RZ7N/bijytmryuXS2MtNlzwejpf5J5qftMDXqcPdhTYLYJ0idnvdRkV6DxCpTApWAmGKa7eCtPMHswlZ6PzVNgoHLWD287x7n/pLitiFjxNJgQ7PTXshtlCgwG4fX4OTBMcdYLtuzJCvJ8z1Cis2jc5JmfTggCAgdq4zNPrGaXOq+tKVLrGVFbs8hZUQ/mzORqBo3/Qd4f7uiEIHoIXtsgKBVz1isUv4o5k8qZ9VqTDwayATxUtkR1/wyM7GqQUylC7ytn88BMKGf87zBmY6MTgnSjbRFhDIIgCjaUiX4Wc2YqZ24+KEgLpp0KQOa5BtILf+rW6AQzJmiC4M1GC3wADNXD8FLh76jNHwID9vhlRF1gYOTtAdkXrv1XYMAStAEHVjDBYQTw1vg/BgNudDktqBsMsG2CS0X+OzDGtSs1pcPUk+0zMD9d9r/2jJF8cp9QeDEIA7oPTLu7i7FbOfpyzJkAY7zWzuCPQY6cZZsIRGlt8DKdiMI8mq3h+S8SgrjFGcUHHD5d9nV9mY4C03YptMdlrfz2++QG44ImAR5c90p+ZTlXzBznlGyAIhg77xf7YzBa8RcKpgdMd80bA7mBgl3K/jsw8OKVY58W35N9PsQxsJrckeOytK9nOB0FA6ZBHz7kT6UfInhXwwE5wEQf9Tgflv0IGPgdz8gLRl9rBm9qqfHgxIp3TfLVUhATDDg5g6HnFzQEMzyPSoFV65Hj4V3PPRFMu5V/UKGub5V7A1VSumoxQkOdi5knZxwMSDwdLCs8YGxwzxmiJn4VtzK4X0xXzLjn7GkaQwkAp9BSUDsuT3Nd22qMTG9E0bfvORuk0TPuO1q5aLjAUAof670pn79v6RN3NmkaxnWBx9BFw3kBFTgY5OVQ0HcZ+QCYBIq37dY/9zYtBvKDB+t94rzG7vv3nAEa9AA5yt003GAMMZtvY5i6GPllzxjRDp0YM/ueM8qMp4+Cm7/smb35bT00gtByMJce50bGeoGGaE/vRej1FjdojHmLP0fjBnnZRz4age+ACpl3gt4onnE32TcqGKJGVBlX6H2PDG46VUoRSo3vcU/wIhpa8NsaL415pwDjNFBh3upXIB+N0JbNgEyEzessbyU1cle4wkUGNOS4f+MCKmz6b9zK124HjrB5O+Cu7u62/ukFVMS8tfFSjNAYvR04xJWJ5hwJQr/sGWre4313pJ2Y1zOtTcBYBdYHIaj9sGfSg3Gce6xGaUxdQk0sj6NL6biS62tgSvMeb+lGNOveZicj1t2cwTJD2M+Im8ZL95xxSdK6w/2YTtBw3HNmVQzuoL7r26AXFiM+GmP3nHloUETNMaENxl4aC/9Np6oitM2xG8pCGGGAkikavojxERq1lXDysMCTNCYvoUaYoMzyqjhWRBgIvyeb4coaDo/zIMf58/c2t4xQ1Fj+R8tNwdhA5f2Y1Fw0lnPNqZlFYw4YLjhYl4TznbguiJORd8FgFNaDl5XzaMwBE/Jf0oHlb5tTm5G3hxlf9mg+ODFZpTNpzAPDfwvtoRY8Djn5aM90UGz3rVND59KYCUaoa4OhFlwlnI/0DIfC8sPApa7N4zK3ZyaX5n5ZXbBwM/AVu95q8sQl1MNlFZjrWH0cQFmfCzyfxsCiOXC517FejOQ7+23B+n4mvefVDBpueyXj0/58t1MZdynP5tIQFs0eVR/7MpZJO8TYma7nIG/mYDNoyAr12igUAkPsPCdtlf05NOR4G1MBhkT4Il05PiDfeM4VR6AuRZ0vm2HKours8tlc36qZNOZKzQMiESIbJ5zgvhF3d7SBPbN7BpOi2txc1NaXKffKJ5UzJxHeOWHmdkgOTlldppRoG7/jWi+hqy9aDxEOpDl7KRV+Gh/rmY5I6YPDl7eszqtCwhGT16RBiUgJm6RpXp9vw+Wkh1LqY5Gvg0GsPPs44RPovl01TV4KGzVlREUDimDYpCjzZrPajrg277KYEjo5VGcoZzNjvYRg60x4C/roctzvD4es4aWuxX+z1WG/P168ruZd2VQCymw+DDDe1Xtq00Ckai7jfImyXj6Wy+VVJJh1rhtmOTUVkazM3wD1yZn8/wKIImYFlhXKrUse1HFNDyf5bZrB+eVSJ3yq4Of4ADdbuw6bul6cKVe5N4kXyjKrMAb+VvP5UI/8A/D/yRodwQO5AAAAAElFTkSuQmCC" alt="Logo"
+            class="object-contain w-16 self-center md:self-left md:w-30">
+        <div class="self-center text-white">Data Summarization</div>
+    </header>
+
+    <section class="flex flex-wrap mt-20 w-full">
+        <div class="w-full md:w-1/2">
+            <form class="w-full flex flex-col md:h-screen" action="{{url_for('Summarize')}}" method="post">
+                <textarea class="w-11/12 md:h-3/4 m-2 p-2 border-black rounded-lg border self-center justify-center"
+                    name="data" id="data" cols="30" rows="10" placeholder="Enter your Data"
+                    required="required"></textarea>
+                <div class="flex self-center">
+                    <h3>Summary Length</h3>
+                    <input type="range" class="m-2" min="20" max="1000" name="maxL">
+                </div>
+                <div class="flex self-center">
+                    <button class="m-1 bg-green-500 hover:bg-blue-700 text-white font-semi-bold py-2 px-4 rounded-lg"
+                        type="submit" onclick="Check()">Submit</button>
+                    <button class="m-1 bg-red-500 hover:bg-blue-700 text-white font-semi-bold py-2 px-4 rounded-lg"
+                        type="reset">Clear</button>
+                </div>
+            </form>
+        </div>
+        <div class="w-full md:w-1/2">
+            <div class="mt-2 flex flex-col w-full md:h-screen">
+                <textarea style="background-color: #EDFFD2;"
+                    class="w-11/12 border-green-600 rounded-lg p-2 border self-center justify-center md:h-3/4" rows="10"
+                    cols="30" name="result" readonly placeholder="Your Summary">{{result}}</textarea>
+                <button
+                    class="m-2 bg-blue-400 hover:bg-blue-700 text-white font-semi-bold py-2 px-4 rounded-lg self-center"
+                    onclick="myFunction()">Copy text</button>
+            </div>
+        </div>
+    </section>
+    <script>
+        function myFunction() {
+            /* Get the text field */
+            var copyText = document.getElementById("myInput");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.value);
+        }
+    </script>
+    <script>
+        function Check() {
+
+            var reg = /<(.|\n)*>/g;
+
+            if (reg.test(document.getElementById("data").value) == true) {
+                var ErrorText = 'Make Sure You Provide Valid Data.';
+                alert('Error Text');
+
+            }
+        }
+    </script>
+</body>
+
+</html>
